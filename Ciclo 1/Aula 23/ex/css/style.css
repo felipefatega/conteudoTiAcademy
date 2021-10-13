@@ -1,0 +1,66 @@
+*{
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box; 
+}
+
+main, header, footer {
+   width: 80%;
+   background-color: darkorange;
+   margin: 10px auto 10px auto;
+}
+
+header {
+   height: 60px;
+}
+
+footer {
+   height: auto;
+   padding: 20px 3px 20px 3px;
+
+}
+
+.ajuste_tamanho {
+   height: 30vh;
+   background-color: darkgreen;
+}
+
+.content-card > div {
+   width: 49.9%;
+   height: 200px;
+   background-color: darkred;
+} 
+
+footer > div {
+   width: 49%;
+   height: 200px;
+   background-color: greenyellow;
+}
+
+.flex {
+   display: flex;
+}
+
+.spacebtw {
+   justify-content: space-between;
+}
+
+section {
+   margin: 10px 0 10px 0;
+}
+
+@media screen and (max-width: 700px){
+   body {
+      background-color: black;
+   }
+
+   section {
+      height: auto;
+      flex-direction: column;
+   }
+
+   section > div, footer > div {
+      width: 100%;
+      margin-bottom: 5px;
+   }
+}

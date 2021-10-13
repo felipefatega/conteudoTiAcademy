@@ -1,0 +1,50 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+fieldset {
+    padding: 2px;
+}
+
+section#form {
+    margin: 30px auto;
+    width: 80%;
+    height: auto;
+    padding: 5px;
+}
+
+form {
+    width: 100%;
+    height: auto;
+    padding: 2px;
+
+}
+
+label {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 2px;
+}
+
+.txt {
+    width: 100%;
+    height: 30px;
+}
+main {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    background-image: url(../exercicioex/img/mercado-de-tecnologia-1024x576.jpg);
+    background-size: 100%;
+}
+
+.fundob {
+    background-color: white;
+}
+.fundoleg {
+    background-color: white;
+    padding: 5px;
+}

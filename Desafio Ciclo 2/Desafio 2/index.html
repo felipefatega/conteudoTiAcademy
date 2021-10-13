@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="cep.css">
+    <script type="module" src="script.js"></script>
+    <title>Desafio 2</title>
+</head>
+<body>
+    <header class="flex">
+        <h1 class="flex">ME ACHA!</h1>
+        <h2 class="flex">ENCONTRE UM ENDEREÇO PELO NÚMERO DE CEP</h2>
+    </header>
+    <div class="flex">
+        <span id="icon" class="material-icons flex">travel_explore</span>
+    </div>
+    <main class="flex">
+        <section id="section" class="flex">
+            <form class="flex" method="POST" name="BUSCA DE CEP">
+                <label for="ent-cep" class="label">CEP</label>
+                <input type="text" required placeholder="Digite o CEP" id="ent-cep" class="input" name="cep" value="">
+                <label for="rua" class="label">Rua</label>
+                <input type="text" required placeholder="Digite o nome da rua" id="logradouro" class="input" name="rua" value="" disabled>
+                <label for="bairro" class="label">Bairro</label>
+                <input type="text" required placeholder="Digite o bairro" id="bairro" class="input" name="bairro" value="" disabled>
+                <label for="cidade" class="label">Cidade</label>
+                <input type="text" required placeholder="Digite a cidade" id="localidade" class="input" name="cidade" value="" disabled>
+                <label for="estado" class="label">Estado</label>
+                <input type="text" required placeholder="Digite o estado" id="uf" class="input" name="estado" value="" disabled>
+                <input type="button" name="buscar" id="buscar" value="BUSCAR">
+            </form>
+        </section>
+    </main>
+</body>
+</html>

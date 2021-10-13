@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Formulário</title>
+</head>
+<body>
+    <main>
+<section id="form">
+    <form method="POST" name="Cadastro">
+        <fieldset class="fundob">
+            <legend class="fundoleg">Cadastro de Usuário</legend>
+            <label for="nomeUser">NOME</label>
+            <input type="text" required placeholder="Digite seu nome" class="txt" id="nomeUser" name="nomeUser" value=""> 
+            <label for="SobrenomeUser">SOBRENOME</label>
+            <input type="text" required placeholder="Digite seu sobrenome" class="txt" id="SobrenomeUser" name="SobrenomeUser" value="">
+            <label for="DataNascUser">DATA DE NASCIMENTO</label>
+            <input type="text" crequired placeholder="Digite sua data de nascimento" class="txt" id="DataNascUser" name="DataNascUser" value="">
+        </fieldset>
+        <fieldset class="fundob">
+            <legend class="fundoleg">Sexo</legend>
+            <label for="Masculino">Masculino</label>
+            <input type="radio" id="Masculino" name="Gênero" value="Masculino">
+            <label for="Feminino">Feminino</label>
+            <input type="radio" id="Feminino" name="Gênero" value="Feminino">
+        </fieldset>
+        <fieldset class="fundob">
+            <legend class="fundoleg">PREFERÊNCIAS</legend>
+            <label for="PHP">PHP</label>
+            <input type="checkbox" id="PHP" name="PHP" value="PHP">
+            <label for="JS">JS</label>
+            <input type="checkbox" id="JS" name="JS" value="JS">
+            <label for="HCSS">HTML e CSS</label>
+            <input type="checkbox" id="HCSS" name="HTML_CSS" value="HTML_CSS">
+        </fieldset>
+        <fieldset class="fundob">
+        <legend class="fundoleg">Seu Nível</legend>
+        <select name="" id="">
+            <option value="">Selecione</option>
+            <option value="Júnior">Júnior</option>
+            <option value="Sênior">Sênior</option>
+            <option value="Master">Master</option>
+        </select>
+        </fieldset>
+        <fieldset class="fundob">
+            <label for="edição">Escreva mais sobre você</label>
+            <textarea name="" id="" cols="" rows=""></textarea>
+        </fieldset>
+        <input type="submit" name="EnviarDados" value="ENVIAR">
+    </form>
+</section>
+</main>
+</body>
+</html>
