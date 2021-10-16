@@ -5,10 +5,12 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Pedido extends Model {
     static associate(models) {
-      Pedido.belongsTo(models.Cliente);
+      Pedido.belongsTo(models.Cliente, {foreignKey: 'ClienteId', as: 'clientes'});
       Pedido.belongsToMany(models.Servico,{
-        through: 'ItemPedido'
+        foreignKey: 'ServicoId', 
+        through: 'ItemPedido', as: 'servicos_ped'
       });
+      Pedido.hasMany(models.ItemPedido, {foreignKey: 'Pedido', as: 'item_pedido'});
     }
   };
   Pedido.init({

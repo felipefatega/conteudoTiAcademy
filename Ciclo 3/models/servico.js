@@ -6,8 +6,9 @@ module.exports = (sequelize, DataTypes) => {
   class Servico extends Model {
     static associate(models) {
       Servico.belongsToMany(models.Pedido,{
-        through: 'ItemPedido'
+        through: 'ItemPedido', as: 'serv'
       });
+      Servico.hasMany(models.ItemPedido, {foreignKey: 'ServicoId', as: 'item_servicos'});
     }
   };
   Servico.init({
