@@ -1,4 +1,4 @@
-import { Container } from "reactstrap";
+import { Container } from 'reactstrap';
 
 export const Home = () => {
     return (
@@ -8,14 +8,27 @@ export const Home = () => {
                     <div className="m-auto p-2">
                         <h1>Home</h1>
                     </div>
-                </div>
-                <div className="p-2">
-                    <a href="/listar-cliente"
-                        className="btn btn-outline-success btn-sm">Cliente</a>
-                    <a href="/listar-pedido"
-                        className="btn btn-outline-success btn-sm">Pedido</a>
-                    <a href="/listar-servico"
-                        className="btn btn-outline-success btn-sm">Serviço</a>
+                    <div className="p-2">
+                        <a
+                            href="/clientes"
+                            className="btn btn-outline-success btn-sm m-2"
+                        >
+                            Clientes
+                        </a>
+                        <a
+                            href="/pedidos"
+                            className="btn btn-outline-success btn-sm m-2"
+                        >
+                            Pedidos
+                            
+                        </a>
+                        <a
+                            href="/servicos"
+                            className="btn btn-outline-success btn-sm m-2"
+                        >
+                            Serviços
+                        </a>
+                    </div>
                 </div>
             </Container>
         </div>

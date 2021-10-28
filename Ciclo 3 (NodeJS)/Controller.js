@@ -11,6 +11,119 @@ let pedido = models.Pedido;
 let servico = models.Servico;
 let itempedido = models.ItemPedido;
 
+app.post('/servicos/cadastrar', async(req, res) => {
+    await servico.create(
+        req.body        
+    ).then(function() {
+        return res.json({
+            error: false,
+            message: "Serviço cadastrado com sucesso!"
+        });
+    }).catch(function(erro) {
+        return res.status(400).json({
+            error: true,
+            message: "Erro ao cadastrar o serviço."
+        })
+    });    
+});
+
+
+app.post('/clientes/cadastrar', async(req, res) => {
+    await cliente.create(
+        req.body        
+    ).then(function() {
+        return res.json({
+            error: false,
+            message: "Cliente cadastrado com sucesso!"
+        });
+    }).catch(function(erro) {
+        return res.status(400).json({
+            error: true,
+            message: "Erro ao cadastrar o cliente."
+        })
+    });
+});
+
+app.post('/pedidos/cadastrar', async(req, res) => {
+    await pedido.create(
+        req.body
+    ).then(function() {
+        return res.json({
+            error: false,
+            message: "Pedido cadastrado com sucesso!"
+        });
+    }).catch(function(erro) {
+        return res.status(400).json({
+            error: true,
+            message: "Erro ao cadastrar o pedido."
+        })
+    });
+});
+
+app.post('/itempedidos/cadastrar', async(req, res) => {
+    await itempedido.create(
+        req.body
+    ).then(function() {
+        return res.json({
+            error: false,
+            message: "O item foi adicionado ao pedido!"
+        });
+    }).catch(function(erro) {
+        return res.status(400).json({
+            error: true,
+            message: "Erro ao adicionar item ao pedido."
+        })
+    });
+});
+
+app.post('/compras/cadastrar', async(req, res) => {
+    await compra.create(
+        req.body        
+    ).then(function() {
+        return res.json({
+            error: false,
+            message: "Compra cadastrada com sucesso!"
+        });
+    }).catch(function(erro) {
+        return res.status(400).json({
+            error: true,
+            message: "Erro ao cadastrar a compra."
+        })
+    });    
+});
+
+app.post('/produtos/cadastrar', async(req, res) => {
+    await produto.create(
+        req.body        
+    ).then(function() {
+        return res.json({
+            error: false,
+            message: "Produto cadastrado com sucesso!"
+        });
+    }).catch(function(erro) {
+        return res.status(400).json({
+            error: true,
+            message: "Erro ao cadastrar o produto."
+        })
+    });    
+});
+
+app.post('/itemcompras/cadastrar', async(req, res) => {
+    await itemcompra.create(
+        req.body
+    ).then(function() {
+        return res.json({
+            error: false,
+            message: "O item foi adicionado à compra!"
+        });
+    }).catch(function(erro) {
+        return res.status(400).json({
+            error: true,
+            message: "Erro ao adicionar item à compra."
+        })
+    });
+});
+
 app.post('/servicos', async(req,res)=>{
     await servico.create(
         req.body
