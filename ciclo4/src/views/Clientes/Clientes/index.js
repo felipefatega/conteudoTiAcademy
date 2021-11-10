@@ -12,74 +12,108 @@ export const Clientes = () => {
         message: ''
     });
 
-    const getServicos = async () => {
+    const getClientes = async () => {
         await axios.get(api + "/clientes")
             .then((response) => {
                 setData(response.data.clientes);
             })
             .catch(() => {
                 setStatus({
-                    type: 'Error',
+                    type: 'error',
                     message: 'Erro: Sem conexão com a API.'
                 });
             });
     };
 
+    const excluirCliente = async(id) => {
+        const headers = {
+            'Content-Type': 'application/json'
+        };
+
+        await axios.get(api + "/clientes/" + id + "/excluir", {headers})
+        .then((response) => {
+            setStatus({
+                type: 'success',
+                message: response.data.message
+            });
+            getClientes();
+        })
+        .catch(() => {
+            setStatus({
+                type: 'error',
+                message: 'Erro: Sem conexão com a API.'
+            });
+        });
+    };
+
     useEffect(() => {
-        getServicos();
+        getClientes();
     }, []);
 
     return (
         <div>
             <Container>
-                <div className="d-flex">
-                    <div>
+                <div className="d-flex justify-content-between">
+                    <div className="p-2">
                         <h1>Clientes</h1>
                     </div>
-                    <div className="m-auto p-2">
+                    <div className="d-flex align-items-center p-2">
                         <Link
                             to="/clientes/cadastrar"
                             className="btn btn-outline-primary btn-sm"
                         >
-                            Cadastrar
+                            Cadastrar cliente
                         </Link>
-                    </div>
-                    {status.type == 'Error' ?
-                        <Alert color="danger">
-                            {status.message}
-                        </Alert> : ""
-                    }
+                    </div>                 
                 </div>
+
+                <hr className="m-1" />
+
+                {status.type === 'success' ? <Alert color="success">{status.message}</Alert> : ''}
+                {status.type === 'error' ? <Alert color="danger">{status.message}</Alert> : ""}
+
                 <Table striped>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Endereço</th>
-                            <th>Cidade</th>
-                            <th>UF</th>
-                            <th>Nascimento</th>
-                            <th>Cliente desde</th>
-                            <th>Ação</th>
+                            <th>Cliente ID</th>
+                            <th className="text-center">Nome</th>
+                            <th className="text-center">Endereço</th>
+                            <th className="text-center">Cidade</th>
+                            <th className="text-center">UF</th>
+                            <th className="text-center">Nascimento</th>
+                            <th className="text-center">Cliente desde</th>
+                            <th className="text-center">Ação</th>
                         </tr>
                     </thead>
                     <tbody>
                         {data.map(item => (
                             <tr key={item.id}>
                                 <th>{item.id}</th>
-                                <td>{item.nome}</td>
-                                <td>{item.endereco}</td>
-                                <td>{item.cidade}</td>
-                                <td>{item.uf}</td>
-                                <td>{item.nascimento}</td>
-                                <td>{item.clienteDesde}</td>
-                                <td className="text-center/">
+                                <td className="text-center">{item.nome}</td>
+                                <td className="text-center">{item.endereco}</td>
+                                <td className="text-center">{item.cidade}</td>
+                                <td className="text-center">{item.uf}</td>
+                                <td className="text-center">{item.nascimento}</td>
+                                <td className="text-center">{item.clienteDesde}</td>
+                                <td className="d-flex justify-content-center">
                                     <Link
                                         to={"/clientes/" + item.id}
-                                        className="btn btn-outline-primary btn-sm"
+                                        className="btn btn-outline-primary btn-sm mx-1"
                                     >
                                         Consultar
                                     </Link>
+                                    <Link
+                                        to={"/clientes/" + item.id + "/editar"}
+                                        className="btn btn-outline-warning btn-sm mx-1"
+                                    >
+                                        Editar
+                                    </Link>
+                                    <span                                        
+                                        className="btn btn-outline-danger btn-sm mx-1"
+                                        onClick={() => excluirCliente(item.id)}
+                                    >
+                                        Excluir
+                                    </span>
                                 </td>
                             </tr>
                         ))}

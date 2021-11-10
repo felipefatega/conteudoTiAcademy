@@ -2,7 +2,7 @@ import axios from "axios";
 import { api } from "../../../config";
 import { useState } from 'react';
 import { Link } from "react-router-dom"
-import { Button, Container, Form, FormGroup, Label, Input, Alert } from "reactstrap"
+import { Button, Container, Form, FormGroup, Label, Input, Alert, Spinner } from "reactstrap"
 
 export const PedidoCadastrar = () => {
 
@@ -12,6 +12,7 @@ export const PedidoCadastrar = () => {
     });
 
     const [status, setStatus] = useState({
+        formSave: false,
         type: '',
         message: ''
     });
@@ -29,36 +30,38 @@ export const PedidoCadastrar = () => {
     const cadPedido = async e => {
         e.preventDefault();
 
+        setStatus({
+            formSave: true
+        });
+
         const headers = {
             'Content-Type': 'application/json'
         };
 
-        await axios.post(api+"/pedidos/cadastrar", pedido, {headers})
+        await axios.post(api + "/pedidos/cadastrar", pedido, {headers})
         .then((response) => {
-            if(response.data.error) {
-                setStatus({
-                    type: 'error',
-                    message: response.data.message
-                });
-            } else {
-                setStatus({
-                    type: 'success',
-                    message: response.data.message
-                });
-            };
+            setStatus({
+                formSave: false,
+                type: 'success',
+                message: response.data.message
+            });
         })
         .catch(() => {
-            console.log("Erro: Sem conexão com a API.");
+            setStatus({
+                formSave: false,
+                type: 'error',
+                message: "Erro: Sem conexão com a API."
+            });
         });
     };
 
     return (
         <Container>
-            <div className="d-flex">
-                <div className="m-auto p-2">
+            <div className="d-flex justify-content-between">
+                <div className="p-2">
                     <h1>Cadastrar Pedido</h1>
                 </div>
-                <div className="p-2">
+                <div className="d-flex align-items-center p-2">
                     <Link
                         to="/pedidos"
                         className="btn btn-outline-success btn-sm"
@@ -70,8 +73,8 @@ export const PedidoCadastrar = () => {
 
             <hr className="m-1" />
 
-            {status.type === 'error' ? <Alert color="danger">{status.message}</Alert> : ''}
             {status.type === 'success' ? <Alert color="success">{status.message}</Alert> : ''}
+            {status.type === 'error' ? <Alert color="danger">{status.message}</Alert> : ''}
 
             <Form className="p-2" onSubmit={cadPedido}>
                 <FormGroup className="p-2">
@@ -81,9 +84,12 @@ export const PedidoCadastrar = () => {
                 <FormGroup className="p-2">
                     <Label>Cliente ID</Label>
                     <Input type="text" name="ClienteId" placeholder="Cliente Id" value={pedido.ClienteId} onChange={valorInput} />
-                </FormGroup>       
-                <Button className="m-2" type="submit" outline color = "success">Cadastrar</Button>
-                <Button className="m-2" type="button" outline color = "secondary" onClick={limparInput}>Limpar</Button>
+                </FormGroup>   
+                {status.formSave ? 
+                    <Button type="submit" className="m-2" outline color="success" disabled>Salvando... <Spinner type="border" size="sm" color="success" children="" /></Button> :
+                    <Button type="submit" className="m-2" outline color="success">Cadastrar</Button>
+                }         
+                <Button type="button" className="m-2" outline color="secondary" onClick={limparInput}>Limpar</Button>
             </Form>
         </Container>
     )

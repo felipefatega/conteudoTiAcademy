@@ -4,7 +4,7 @@ import { Alert, Container, Table } from "reactstrap";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-export const Pedidos = () => {
+export const Compras = () => {
 
     const [data, setData] = useState([]);
     const [status, setStatus] = useState({
@@ -12,10 +12,10 @@ export const Pedidos = () => {
         message: ''
     });
 
-    const getPedidos = async () => {
-        await axios.get(api + "/pedidos")
+    const getCompras = async () => {
+        await axios.get(api + "/compras")
             .then((response) => {
-                setData(response.data.pedidos);
+                setData(response.data.compras);
             })
             .catch(() => {
                 setStatus({
@@ -25,18 +25,18 @@ export const Pedidos = () => {
             });
     };
 
-    const excluirPedido = async(id) => {
+    const excluirCompra = async(id) => {
         const headers = {
             'Content-Type': 'application/json'
         };
 
-        await axios.get(api + "/pedidos/" + id + "/excluir", {headers})
+        await axios.get(api + "/compras/" + id + "/excluir", {headers})
         .then((response) => {
             setStatus({
                 type: 'success',
                 message: response.data.message
             });
-            getPedidos();
+            getCompras();
         })
         .catch(() => {
             setStatus({
@@ -47,7 +47,7 @@ export const Pedidos = () => {
     };
 
     useEffect(() => {
-        getPedidos();
+        getCompras();
     }, []);
 
     return (
@@ -55,14 +55,14 @@ export const Pedidos = () => {
             <Container>
                 <div className="d-flex justify-content-between">
                     <div className="p-2">
-                        <h1>Pedidos</h1>
+                        <h1>Compras</h1>
                     </div>
                     <div className="d-flex align-items-center p-2">
                         <Link
-                            to="/pedidos/cadastrar"
+                            to="/compras/cadastrar"
                             className="btn btn-outline-primary btn-sm"
                         >
-                            Cadastrar pedido
+                            Cadastrar compra
                         </Link>
                     </div>
                 </div>
@@ -75,7 +75,7 @@ export const Pedidos = () => {
                 <Table striped>
                     <thead>
                         <tr>
-                            <th>Pedido ID</th>
+                            <th>Compra ID</th>
                             <th className="text-center">Cliente ID</th>
                             <th className="text-center">Data</th>
                             <th className="text-center">Ação</th>
@@ -89,20 +89,20 @@ export const Pedidos = () => {
                                 <td className="text-center">{item.data}</td>
                                 <td className="d-flex justify-content-center">
                                     <Link
-                                        to={"/pedidos/" + item.id}
+                                        to={"/compras/" + item.id}
                                         className="btn btn-outline-primary btn-sm mx-1"
                                     >
                                         Consultar
                                     </Link>
                                     <Link
-                                        to={"/pedidos/" + item.id + "/editar"}
+                                        to={"/compras/" + item.id + "/editar"}
                                         className="btn btn-outline-warning btn-sm mx-1"
                                     >
                                         Editar
                                     </Link>
                                     <span                                        
                                         className="btn btn-outline-danger btn-sm mx-1"
-                                        onClick={() => excluirPedido(item.id)}
+                                        onClick={() => excluirCompra(item.id)}
                                     >
                                         Excluir
                                     </span>

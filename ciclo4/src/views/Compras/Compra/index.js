@@ -4,21 +4,19 @@ import { Alert, Container, Table } from "reactstrap";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-export const Cliente = (props) => {
+export const Compra = (props) => {
 
-    const [pedidos, setPedidos] = useState([]);
-    const [compras, setCompras] = useState([]);
+    const [data, setData] = useState([]);
     const [status, setStatus] = useState({
         type: '',
         message: ''
     });
     const [id] = useState(props.match.params.id);
 
-    const getCliente = async () => {
-        await axios.get(api + "/clientes/" + id)
+    const getCompra = async () => {
+        await axios.get(api + "/compras/" + id)
             .then((response) => {
-                setPedidos(response.data.cli.pedidos);  
-                setCompras(response.data.cli.compras);
+                setData(response.data.comp.compra_produtos);                            
             })
             .catch(() => {
                 setStatus({
@@ -29,7 +27,7 @@ export const Cliente = (props) => {
     };
 
     useEffect(() => {
-        getCliente();
+        getCompra();
     }, [id]);
 
     return (
@@ -37,68 +35,46 @@ export const Cliente = (props) => {
             <Container>
                 <div className="d-flex justify-content-between">
                     <div className="p-2">
-                        <h1>Pedidos e Compras do cliente</h1>
+                        <h1>Informações da Compra</h1>
                     </div>
                     <div className="d-flex align-items-center p-2">
                         <Link
-                            to="/clientes"
+                            to="/compras"
                             className="btn btn-outline-success btn-sm m-2"
                         >
-                            Clientes
+                            Compras
                         </Link>
                         <Link
-                            to="/pedidos"
+                            to="/produtos"
                             className="btn btn-outline-success btn-sm m-2"
                         >
-                            Pedidos
+                            Produtos
                         </Link>
                     </div>
                 </div>
-                
+
+                <hr className="m-1" />
+
                 {status.type === 'error' ? <Alert color="danger">{status.message}</Alert> : ""}
 
                 <Table striped>
                     <thead>
                         <tr>
-                            <th>Pedido ID</th>
-                            <th className="text-center">Data</th>
+                            <th>Produto ID</th>
+                            <th className="text-center">Nome</th>
+                            <th className="text-center">Descrição</th>                            
                             <th className="text-center">Ação</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {pedidos.map(item => (
+                        {data.map(item => (
                             <tr key={item.id}>
                                 <th>{item.id}</th>
-                                <td className="text-center">{item.data}</td>
+                                <td className="text-center">{item.nome}</td>
+                                <td className="text-center">{item.descricao}</td>
                                 <td className="text-center">
                                     <Link
-                                        to={"/pedidos/" + item.id}
-                                        className="btn btn-outline-primary btn-sm"
-                                    >
-                                        Consultar
-                                    </Link>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </Table>
-
-                <Table striped>
-                    <thead>
-                        <tr>
-                            <th>Compra ID</th>
-                            <th className="text-center">Data</th>
-                            <th className="text-center">Ação</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {compras.map(item => (
-                            <tr key={item.id}>
-                                <th>{item.id}</th>
-                                <td className="text-center">{item.data}</td>
-                                <td className="text-center">
-                                    <Link
-                                        to={"/compras/" + item.id}
+                                        to={"/produtos/" + item.ItemCompra.ProdutoId}
                                         className="btn btn-outline-primary btn-sm"
                                     >
                                         Consultar
