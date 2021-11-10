@@ -124,119 +124,7 @@ app.post('/itemcompras/cadastrar', async(req, res) => {
     });
 });
 
-app.post('/servicos', async(req,res)=>{
-    await servico.create(
-        req.body
-    ).then(function(){
-        return res.json({
-            error: false,
-            message: "Serviço criado com sucesso!"
-        })
-    }).catch(function(erro){
-        return res.status(400).json({
-            error: true,
-            message: "Foi impossível se conectar."
-        })
-    });
-})
-
-app.post('/clientes', async(req,res)=>{
-    await cliente.create(
-        req.body
-    ).then(function(){
-        return res.json({
-            error: false,
-            message: "Cliente Cadastrado com sucesso!"
-        })
-    }).catch(function(erro){
-        return res.status(400).json({
-            error: true,
-            message: "Foi impossível se conectar."
-        })
-    });
-})
-
-app.post('/pedidos', async(req,res)=>{
-    await pedido.create(
-        req.body
-    ).then(function(){
-        return res.json({
-            error: false,
-            message: "Pedido realizado com sucesso!"
-        })
-    }).catch(function(erro){
-        return res.status(400).json({
-            error: true,
-            message: "Foi impossível se conectar."
-        })
-    });
-})
-
-app.post('/itempedidos', async(req,res)=>{
-    await itempedido.create(
-        req.body
-    ).then(function(){
-        return res.json({
-            error: false,
-            message: "Item selecionado com sucesso!"
-        })
-    }).catch(function(erro){
-        return res.status(400).json({
-            error: true,
-            message: "Impossível se conectar."
-        })
-    });
-})
-
-app.post('/compras', async(req,res)=>{
-    await compra.create(
-        req.body
-    ).then(function(){
-        return res.json({
-            error: false,
-            message: "Compra realizada com sucesso!"
-        })
-    }).catch(function(erro){
-        return res.status(400).json({
-            error: true,
-            message: "Impossível se conectar."
-        })
-    });
-})
-
-app.post('/produtos', async(req,res)=>{
-    await produto.create(
-        req.body
-    ).then(function(){
-        return res.json({
-            error: false,
-            message: "Produto selecionado com sucesso!"
-        })
-    }).catch(function(erro){
-        return res.status(400).json({
-            error: true,
-            message: "Impossível se conectar."
-        })
-    });
-})
-
-app.post('/itemcompras', async(req,res)=>{
-    await itemcompra.create(
-        req.body
-    ).then(function(){
-        return res.json({
-            error: false,
-            message: "Item selecionado com sucesso!"
-        })
-    }).catch(function(erro){
-        return res.status(400).json({
-            error: true,
-            message: "Impossível se conectar."
-        })
-    });
-})
-
-app.get('/listaservicos', async(req, res)=>{
+app.get('/servicos', async(req, res)=>{
     await servico.findAll({
         order: [['nome','ASC']]
     }).then(function(servicos){
@@ -252,7 +140,7 @@ app.get('/listaservicos', async(req, res)=>{
     });
 });
 
-app.get('/listaclientes', async(req, res)=>{
+app.get('/clientes', async(req, res)=>{
     await cliente.findAll({
         order: [['clienteDesde', 'DESC']]
     }).then(function(clientes){
@@ -268,7 +156,7 @@ app.get('/listaclientes', async(req, res)=>{
     });
 });
 
-app.get('/listapedidos', async(req, res)=>{
+app.get('/pedidos', async(req, res)=>{
     await pedido.findAll({
         order: [['data', 'ASC']]
     }).then(function(pedidos){
@@ -284,7 +172,7 @@ app.get('/listapedidos', async(req, res)=>{
     });
 });
 
-app.get('/listacompras', async(req, res)=>{
+app.get('/compras', async(req, res)=>{
     await compra.findAll({
         order: [['data', 'ASC']]
     }).then(function(compras){
@@ -300,7 +188,7 @@ app.get('/listacompras', async(req, res)=>{
     });
 });
 
-app.get('/listaprodutos', async(req, res)=>{
+app.get('/produtos', async(req, res)=>{
     await produto.findAll({
         order: [['nome', 'ASC']]
     }).then(function(produtos){
@@ -316,95 +204,31 @@ app.get('/listaprodutos', async(req, res)=>{
     });
 });
 
-app.get('/listaitempedidos', async(req, res)=>{
-    await itempedido.findAll({
-        order: [['PedidoId', 'ASC']]
-    }).then(function(itemPedidos){
-        res.json({
-            error: false,
-            itemPedidos
-        });
-    }).catch(function(erro) {
-        return res.status(400).json({
-            error: true,
-            message: "Erro ao listar itens."
-        });
-    });
-});
-
-app.get('/listaitemcompras', async(req, res)=>{
-    await itemcompra.findAll({
-        order: [['CompraId', 'ASC']]
-    }).then(function(itemCompras){
-        res.json({
-            error: false,
-            itemCompras
-        });
-    }).catch(function(erro) {
-        return res.status(400).json({
-            error: true,
-            message: "Erro ao listar itens."
-        });
-    });
-});
-
-app.get('/servico/:id', async(req, res) => {
-    if(!await servico.findByPk(req.params.id)) {
-        return res.status(400).json({
-            erro: true,
-            message: "Servico não encontrado."
-        });
-    };
-
-    await servico.findByPk(req.params.id, {include: [{all: true}]})
-    .then(serv => {
-        return res.json({
-            error: false,
-            serv
-        });
-    }).catch(function(erro) {
-        return res.status(400).json({
-            error: true,
-            message: "Erro ao buscar o serviço."
-        });
-    });
-});
-
-app.get('/cliente/:id', async(req, res) => {
-    if(!await cliente.findByPk(req.params.id)) {
-        return res.status(400).json({
-            erro: true,
-            message: "Cliente não encontrado(a)."
-        });
-    };
-
-    await cliente.findByPk(req.params.id, {include: [{all: true}]})
-    .then(client => {
-        return res.json({
-            error: false,
-            client
-        });
-    }).catch(function(erro) {
-        return res.status(400).json({
-            error: true,
-            message: "Erro ao buscar cliente."
-        });
-    });
-});
-
-app.get('/pedido/:id', async(req, res) => {
-    if(!await pedido.findByPk(req.params.id)) {
+app.get('/itempedidos/:PedidoId/:ServicoId', async(req, res) => {
+    if(!await pedido.findByPk(req.params.PedidoId)) {
         return res.status(400).json({
             erro: true,
             message: "Pedido não encontrado."
         });
     };
 
-    await pedido.findByPk(req.params.id, {include: [{all: true}]})
-    .then(pedid => {
+    if(!await servico.findByPk(req.params.ServicoId)) {
+        return res.status(400).json({
+            erro: true,
+            message: "Serviço não encontrado."
+        });
+    };
+
+    await itempedido.findOne({where: 
+        Sequelize.and(
+            {ServicoId: req.params.ServicoId},
+            {PedidoId: req.params.PedidoId}
+        )
+    })
+    .then(item => {
         return res.json({
             error: false,
-            pedid
+            item
         });
     }).catch(function(erro) {
         return res.status(400).json({
@@ -414,24 +238,36 @@ app.get('/pedido/:id', async(req, res) => {
     });
 });
 
-app.get('/compra/:id', async(req, res) => {
-    if(!await compra.findByPk(req.params.id)) {
+app.get('/itemcompras/:CompraId/:ProdutoId', async(req, res) => {
+    if(!await compra.findByPk(req.params.CompraId)) {
         return res.status(400).json({
             erro: true,
             message: "Compra não encontrada."
         });
     };
 
-    await compra.findByPk(req.params.id, {include: [{all: true}]})
-    .then(comp => {
+    if(!await produto.findByPk(req.params.ProdutoId)) {
+        return res.status(400).json({
+            erro: true,
+            message: "Produto não encontrado."
+        });
+    };
+
+    await itemcompra.findOne({where: 
+        Sequelize.and(
+            {CompraId: req.params.CompraId},
+            {ProdutoId: req.params.ProdutoId}
+        )
+    })
+    .then(item => {
         return res.json({
             error: false,
-            comp
+            item
         });
     }).catch(function(erro) {
         return res.status(400).json({
             error: true,
-            message: "Erro ao buscar a compra."
+            message: "Erro ao buscar o pedido."
         });
     });
 });
@@ -545,41 +381,43 @@ app.put('/editarpedido/:id', async(req, res) => {
     });
 });
 
-app.put('/pedido/:id/editaritempedido', async(req, res) => {
-    if(!await pedido.findByPk(req.params.id)) {
+app.put('/itempedidos/:PedidoId/:ServicoId/editar', async(req, res) => {
+    if(!await pedido.findByPk(req.params.PedidoId)) {
         return res.status(400).json({
             erro: true,
             message: "Pedido não encontrado."
         });
     };
 
-    if(!await servico.findByPk(req.body.ServicoId)) {
+    if(!await servico.findByPk(req.params.ServicoId)) {
         return res.status(400).json({
             erro: true,
             message: "Serviço não encontrado."
         });
     };
 
-    const itemPed = {
+    const item = {
+        PedidoId: req.body.PedidoId,
+        ServicoId: req.body.ServicoId,
         quantidade: req.body.quantidade,
         valor: req.body.valor
     };
 
-    await itempedido.update(itemPed, {
+    await itempedido.update(item, {
         where: Sequelize.and(
-            {ServicoId: req.body.ServicoId},
-            {PedidoId: req.params.id}
+            {ServicoId: req.params.ServicoId},
+            {PedidoId: req.params.PedidoId}
         )
-    }).then(function(itensPed) {
+    }).then(function(itens) {
         return res.json({
             error: false,
-            message: "O pedido foi alterado com sucesso!",
-            itensPed
+            message: "Item alterado com sucesso!",
+            itens
         });
     }).catch(function(erro) {
         return res.status(400).json({
             error: true,
-            message: "Ocorreu um erro na alteração do pedido."
+            message: "Erro ao alterar pedido."
         });
     });
 });
@@ -639,41 +477,43 @@ app.put('/editarproduto/:id', async(req, res) => {
     });
 });
 
-app.put('/compra/:id/editaritemcompra', async(req, res) => {
-    if(!await compra.findByPk(req.params.id)) {
+app.put('/itemcompras/:CompraId/:ProdutoId/editar', async(req, res) => {
+    if(!await compra.findByPk(req.params.CompraId)) {
         return res.status(400).json({
             erro: true,
             message: "Compra não encontrada."
         });
     };
 
-    if(!await produto.findByPk(req.body.ProdutoId)) {
+    if(!await produto.findByPk(req.params.ProdutoId)) {
         return res.status(400).json({
             erro: true,
             message: "Produto não encontrado."
         });
     };
 
-    const itemComp = {
+    const item = {
+        CompraId: req.body.CompraId,
+        ProdutoId: req.body.ProdutoId,
         quantidade: req.body.quantidade,
         valor: req.body.valor
     };
 
-    await itemcompra.update(itemComp, {
+    await itemcompra.update(item, {
         where: Sequelize.and(
-            {ProdutoId: req.body.ProdutoId},
-            {CompraId: req.params.id}
+            {ProdutoId: req.params.ProdutoId},
+            {CompraId: req.params.CompraId}
         )
-    }).then(function(itensComp) {
+    }).then(function(itens) {
         return res.json({
             error: false,
-            message: "A compra foi alterada com sucesso!",
-            itensComp
+            message: "Pedido alterado com sucesso!",
+            itens
         });
     }).catch(function(erro) {
         return res.status(400).json({
             error: true,
-            message: "Ocorreu um erro na alteração da compra."
+            message: "Erro ao alterar pedido."
         });
     });
 });
@@ -726,28 +566,35 @@ app.get('/excluirpedido/:id', async(req, res)=>{
     });
 });
 
-app.get('/pedidos/:id/excluiritempedido', async(req, res) => {
-    if(!await pedido.findByPk(req.params.id)) {
+app.get('/itempedidos/:PedidoId/:ServicoId/excluir', async(req, res) => {
+    if(!await pedido.findByPk(req.params.PedidoId)) {
         return res.status(400).json({
             erro: true,
             message: "Pedido não encontrado."
         });
     };
 
+    if(!await servico.findByPk(req.params.ServicoId)) {
+        return res.status(400).json({
+            erro: true,
+            message: "Serviço não encontrado."
+        });
+    };
+
     await itempedido.destroy({        
         where: Sequelize.and({
-            ServicoId: req.body.ServicoId, 
-            PedidoId: req.params.id
+            ServicoId: req.params.ServicoId, 
+            PedidoId: req.params.PedidoId
         })
     }).then(function() {
         return res.json({
             error: false,
-            message: "O item foi excluído!"
+            message: "Item excluído com sucesso!"
         });
     }).catch(function(erro) {
         return res.status(400).json({
             error: true,
-            message: "Ocorreu um erro ao excluir o item."
+            message: "Erro ao excluir o item."
         });
     });
 });
@@ -784,28 +631,35 @@ app.get('/excluirproduto/:id', async(req, res)=>{
     });
 });
 
-app.get('/compras/:id/excluiritemcompra', async(req, res) => {
-    if(!await compra.findByPk(req.params.id)) {
+app.get('/itemcompras/:CompraId/:ProdutoId/excluir', async(req, res) => {
+    if(!await compra.findByPk(req.params.CompraId)) {
         return res.status(400).json({
             erro: true,
             message: "Compra não encontrada."
         });
     };
 
+    if(!await produto.findByPk(req.params.ProdutoId)) {
+        return res.status(400).json({
+            erro: true,
+            message: "Produto não encontrado."
+        });
+    };
+
     await itemcompra.destroy({        
         where: Sequelize.and({
-            ProdutoId: req.body.ProdutoId, 
-            CompraId: req.params.id
+            ProdutoId: req.params.ProdutoId, 
+            CompraId: req.params.CompraId
         })
     }).then(function() {
         return res.json({
             error: false,
-            message: "O item foi excluído!"
+            message: "Item excluído com sucesso!"
         });
     }).catch(function(erro) {
         return res.status(400).json({
             error: true,
-            message: "Ocorreu um erro ao excluir o item."
+            message: "Erro ao excluir o item."
         });
     });
 });

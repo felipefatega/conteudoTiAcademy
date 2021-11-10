@@ -53,7 +53,7 @@ function App() {
           <Route exact path="/itempedidos" component={ItemPedidos} />
           <Route path="/itempedidos/cadastrar" component={ItemPedidosCadastrar} />
           <Route exact path="/itempedidos/:PedidoId/:ServicoId" component={ItemPedido} />         
-          <Route path="/pedido/:PedidoId/:ServicoId/editaritempedido" component={ItemPedidosEditar} />   
+          <Route path="/itempedidos/:PedidoId/:ServicoId/editar" component={ItemPedidosEditar} />   
           <Route exact path="/compras" component={Compras} />
           <Route path="/compras/cadastrar" component={CompraCadastrar} />
           <Route exact path="/compras/:id" component={Compra} />
@@ -65,7 +65,7 @@ function App() {
           <Route exact path="/itemcompras" component={ItemCompras} />
           <Route path="/itemcompras/cadastrar" component={ItemComprasCadastrar} />
           <Route exact path="/itemcompras/:CompraId/:ProdutoId" component={ItemCompra} />         
-          <Route path="/compra/:CompraId/:ProdutoId/editaritemcompra" component={ItemComprasEditar} /> 
+          <Route path="/itemcompras/:CompraId/:ProdutoId/editar" component={ItemComprasEditar} /> 
         </Switch>
       </Router>
     </div>
